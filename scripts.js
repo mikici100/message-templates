@@ -42,3 +42,11 @@ document.getElementById('templates').addEventListener('change', function () {
 });
 
 document.getElementById('template-content').textContent = templates['template1'];
+
+function saveTemplate() {
+    const selectedTemplate = document.getElementById('templates').value;
+    templates[selectedTemplate] = document.getElementById('template-content').textContent;
+    alert('Template saved successfully.');
+}
+
+document.getElementById('save-template').addEventListener('click', saveTemplate);
