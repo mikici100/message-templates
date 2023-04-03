@@ -5,29 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message Templates</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Message Templates</h1>
-    </header>
-    <main>
-        <label for="templates">Choose a template:</label>
-        <select name="templates" id="templates">
-            <option value="template1">Template 1</option>
-            <option value="template2">Template 2</option>
-            <option value="template3">Template 3</option>
-        </select>
-        <div id="template-container">
-            <pre id="template-content" contenteditable="true"></pre>
-        </div>
-        <button id="save-template">Save</button>
-    </main>
-    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.9/firebase-database.js"></script>
+    <h1>Message Templates</h1>
+    <div>
+        <label for="templates">Select a template:</label>
+        <select id="templates"></select>
+    </div>
+    <div>
+        <label for="template-content">Template content:</label>
+        <textarea id="template-content"></textarea>
+    </div>
+    <button id="save-template">Save Template</button>
+    <button id="add-template">Ajouter un template</button>
+    <button id="rename-template">Renommer le template</button>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
-<!-- ... -->
-<button id="add-template">Ajouter un template</button>
-<button id="rename-template">Renommer le template</button>
-<!-- ... -->
