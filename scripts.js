@@ -37,25 +37,49 @@ Sincerely,
 [Your Contact Information]`
 };
 
-// Load templates from localStorage or use default templates
-const templates = JSON.parse(localStorage.getItem('messageTemplates')) || defaultTemplates;
+// Replace with the Firebase configuration object you copied earlier
+const firebaseConfig = {
+    apiKey: "AIzaSyCubfHd72z0Yvp72rFNxKm98VeUXzEloXo",
+    authDomain: "ella-b4af0.firebaseapp.com",
+    databaseURL: "https://ella-b4af0-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "ella-b4af0",
+    storageBucket: "ella-b4af0.appspot.com",
+    messagingSenderId: "143960882717",
+    appId: "1:143960882717:web:d27714e507661b727c50f4",
+};
 
-function updateTemplateContent() {
-    document.getElementById('template-content').textContent = templates[this.value];
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the Firebase Realtime Database
+const database = firebase.database();
+
+function loadTemplates(callback) {
+    database.ref('messageTemplates').once('value', (snapshot) => {
+        const templates = snapshot.val() || defaultTemplates;
+        callback(templates);
+    });
 }
 
-function saveTemplate() {
-    const selectedTemplate = document.getElementById('templates').value;
-    templates[selectedTemplate] = document.getElementById('template-content').textContent;
-
-    // Save templates to localStorage
-    localStorage.setItem('messageTemplates', JSON.stringify(templates));
-
-    alert('Template saved successfully.');
+function saveTemplates(templates) {
+    database.ref('messageTemplates').set(templates);
 }
 
-document.getElementById('templates').addEventListener('change', updateTemplateContent);
-document.getElementById('save-template').addEventListener('click', saveTemplate);
+// Load templates from the database
+loadTemplates((templates) => {
+    function updateTemplateContent() {
+        document.getElementById('template-content').textContent = templates[this.value];
+    }
 
-// Initialize the content with the first template
-document.getElementById('template-content').textContent = templates['template1'];
+    function saveTemplate() {
+        const selectedTemplate = document.getElementById('templates').value;
+        templates[selectedTemplate] = document.getElementById('template-content').textContent;
+
+        // Save templates to the database
+        saveTemplates(templates);
+
+        alert('Template saved successfully.');
+    }
+
+    document.getElementById('templates').addEventListener('change', updateTemplateContent);
+    document
