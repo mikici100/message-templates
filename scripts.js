@@ -1,4 +1,4 @@
-const templates = {
+const defaultTemplates = {
     template1: `Subject: Template 1
 
 Dear [Recipient],
@@ -37,16 +37,25 @@ Sincerely,
 [Your Contact Information]`
 };
 
-document.getElementById('templates').addEventListener('change', function () {
-    document.getElementById('template-content').textContent = templates[this.value];
-});
+// Load templates from localStorage or use default templates
+const templates = JSON.parse(localStorage.getItem('messageTemplates')) || defaultTemplates;
 
-document.getElementById('template-content').textContent = templates['template1'];
+function updateTemplateContent() {
+    document.getElementById('template-content').textContent = templates[this.value];
+}
 
 function saveTemplate() {
     const selectedTemplate = document.getElementById('templates').value;
     templates[selectedTemplate] = document.getElementById('template-content').textContent;
+
+    // Save templates to localStorage
+    localStorage.setItem('messageTemplates', JSON.stringify(templates));
+
     alert('Template saved successfully.');
 }
 
+document.getElementById('templates').addEventListener('change', updateTemplateContent);
 document.getElementById('save-template').addEventListener('click', saveTemplate);
+
+// Initialize the content with the first template
+document.getElementById('template-content').textContent = templates['template1'];
