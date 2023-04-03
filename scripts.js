@@ -14,7 +14,7 @@ function saveTemplates(templates, names) {
 // Load templates from the database
 loadTemplates((templates, names) => {
     function updateTemplateContent() {
-        document.getElementById('template-content').textContent = templates[this.value];
+        document.getElementById('template-content').value = templates[this.value];
     }
 
     function saveTemplate() {
